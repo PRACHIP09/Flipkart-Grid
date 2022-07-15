@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=La+Belle+Aurore&family=Marck+Script&family=Oranienbaum&family=Scada&display=swap');
+body{
+    font-family: 'Scada', sans-serif;
+}
+.active{
+    text-decoration: none;
+    color: #E2C091 !important;
+}
+.indicator
+{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}
