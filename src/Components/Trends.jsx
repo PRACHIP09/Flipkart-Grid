@@ -77,7 +77,7 @@ const Trends = () => {
         {/*category*/}
         <Grid container spacing={2} padding={2} paddingTop={5}>
           <Grid item xs={5} >
-            <a href="#Fashion"><Card sx={{ backgroundColor: "blue", height: "35vh", boxShadow: "none" }}></Card></a>
+            <a href="#Fashion"><Card sx={{ backgroundColor: "pink", height: "35vh", boxShadow: "none" }}></Card></a>
           </Grid>
           <Grid item xs={7} >
             <a href="#Mobile"><Card sx={{ backgroundColor: "blue", height: "35vh", boxShadow: "none" }}></Card></a>
