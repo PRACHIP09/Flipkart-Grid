@@ -82,3 +82,7 @@ def brands(request):
 #https://www.instagram.com/explore/search/keyword/?q=flipkart
 #https://www.instagram.com/explore/tags/flipkart/
 #https://www.instagram.com/flipkart/tagged/
+
+@api_view(['GET',])
+def get_trends(request):
+    return JsonResponse({'success' : 'success'})
