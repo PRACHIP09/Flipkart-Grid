@@ -1,7 +1,8 @@
 from django.db import models
 
 class Category(models.Model):
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 25)
+    description =  models.TextField(max_length=255, default = 'Desc')
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -11,7 +12,8 @@ class Category(models.Model):
 
 class SubCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 25)
+    description =  models.TextField(max_length=255, default = 'Desc')
 
     class Meta:
         verbose_name_plural = 'Sub-Categories'
@@ -20,7 +22,7 @@ class SubCategory(models.Model):
         return self.name
 
 class Brand(models.Model):
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 30)
 
     def __str__(self):
         return self.name
@@ -47,6 +49,7 @@ class Product(models.Model):
     rating = models.PositiveIntegerField(default = 0)
     searches = models.PositiveIntegerField(default = 0)
     viewers = models.PositiveIntegerField(default = 0)
+    rank = models.PositiveIntegerField(default = 0)
 
     def __str__(self):
         return self.name
