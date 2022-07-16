@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-tc6akl8d^)%e-^rvmc*o3q5(%9a+(75twrp6pe*lo#_tw(3n=u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['flipkart-grid.herokuapp.com','127.0.0.1']
 
 
 # Application definition
