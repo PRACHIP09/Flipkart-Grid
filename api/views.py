@@ -60,11 +60,11 @@ def all_products(request):
         products = Product.objects.filter(subcategory = subcategory).order_by('rank')
         serializer = ProductSerializer(products, many = True)
     elif len(filter) == 3:
-        subcategory = SubCategory.objects.get(name = filter[1])
+        category = Category.objects.get(name = filter[0])
         brand = Brand.objects.filter(name = filter[2]).first()
         if brand is None:
             return JsonResponse({'failure':'No such brand exists'},status = status.HTTP_404_NOT_FOUND , safe = False)
-        products = Product.objects.filter(subcategory = subcategory, brand = brand).order_by('rank')
+        products = Product.objects.filter(category = category, brand = brand).order_by('rank')
         serializer = ProductSerializer(products, many = True)
     else:
         serializer = ProductSerializer(Product.objects.all().order_by('rank'), many = True)
