@@ -2,6 +2,7 @@
 *.pot
 *.pyc
 _pycache_/
+db.sqlite3
 local_settings.py
 staticfiles
 # Environments
@@ -17,4 +18,3 @@ venv.bak/
 # VS Code settings
 .vscode
 .idea
-db.sqlite3
