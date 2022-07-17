@@ -18,3 +18,7 @@ venv.bak/
 # VS Code settings
 .vscode
 .idea
+media/
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
