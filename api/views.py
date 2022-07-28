@@ -83,6 +83,16 @@ def brands(request):
 #https://www.instagram.com/explore/tags/flipkart/
 #https://www.instagram.com/flipkart/tagged/
 
+'''from instascrape import *
+import pandas as pd
+
 @api_view(['GET',])
 def get_trends(request):
-    return JsonResponse({'success' : 'success'})
+    hashtag = Hashtag('https://www.instagram.com/explore/tags/flipkart/')
+    hashtag.scrape()
+    posts = hashtag.get_recent_posts()
+    posts_data = [post.to_dict() for post in posts]
+    posts_df = pd.DataFrame(posts_data)
+    print(posts_df[['comments', 'likes', 'caption']])
+    posts_df.to_csv('data.csv')
+    return JsonResponse({'success' : 'success'})'''

@@ -43,6 +43,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default = 0)
     description = models.CharField(max_length = 255, blank= True, null= True)
     image = models.ImageField(upload_to = upload_path_handler,null = True, blank = True)
+    url = models.URLField(default='www.example.com')
 
     hastags = models.PositiveIntegerField(default = 0)
     buyers = models.PositiveIntegerField(default = 0)
