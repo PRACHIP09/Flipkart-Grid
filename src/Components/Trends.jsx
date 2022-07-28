@@ -10,10 +10,20 @@ import Electronics from "../Images/electronics.jpg";
 import Home from "../Images/home.jpg";
 import Travel from "../Images/travel.jpg";
 import Grocery from "../Images/grocery.jpg";
+import Modal from "react-modal";
+import fashionlogo from "../Images/fashionlogo.jpg";
+import mobilelogo from "../Images/mobilelogo.jpg";
+import electronicslogo from "../Images/electronicslogo.jpg";
+import homelogo from "../Images/homelogo.jpg";
+import travellogo from "../Images/travellogo.png";
+import grocerylogo from "../Images/grocerylogo.webp";
 import './Navbar.css';
 
 const Trends = () => {
 
+  const [ModalOpen, setModalOpen] = useState(false);
+  const [currentPost, setcurrentPost] = useState("");
+  const [cardcolor, setcardcolor] = useState("");
   var hero = {
     infinite: true,
     speed: 5000,
@@ -24,6 +34,29 @@ const Trends = () => {
   }
   const loops = [1, 2, 3, 4, 5, 6];
   const wallp = [wallpaper, wallpaper3, wallpaper2];
+
+  function details(id, color) {
+    setcurrentPost(id);
+    setcardcolor(color);
+    console.log(id, color);
+  }
+  function handleOpen() {
+    setModalOpen(true);
+  }
+
+//   useEffect(() => {
+//     loadList();
+//   }, []);
+ 
+//  const loadList = async () => {
+//     const result = await axios.get(`http://dhirajssh.pythonanywhere.com/api/page?page=1`,{
+//       headers: {"Authorization": `Bearer ${authToken.access}`},
+//     })
+//     setLoadImage(result.data.results)
+
+//   };
+
+
   const social = [
     { name: "FACEBOOK", color: "#023e84" },
     { name: "INSTAGRAM", color: "#db224e" },
@@ -34,27 +67,27 @@ const Trends = () => {
   const category = [
     {
       name: Fashion, x: "1", id: "Fashion", align: "left", color: "#f2f2f2",
-      card: "#ead3d8", stylename: "fashionhead", font: "6rem"
+      card: "#ead3d8", stylename: "fashionhead", font: "6rem", y: "5" , logo:fashionlogo
     },
     {
       name: Mobile, x: "2", id: "Mobile", align: "right", color: "#fefefe",
-      card: "#f6f6f2", stylename: "mobilehead", font: "5rem"
+      card: "#f6f6f2", stylename: "mobilehead", font: "5rem", y: "6" ,logo:mobilelogo
     },
     {
       name: Electronics, x: "3", id: "Electronics", align: "left", color: "#f0f0f0",
-      card: "#f0f0f0", stylename: "elchead", font: "3rem"
+      card: "#f0f0f0", stylename: "elchead", font: "3rem", y: "1" ,logo:electronicslogo
     },
     {
       name: Home, x: "4", id: "Home Decor", align: "right", color: "#f3f3f3",
-      card: "#f8e6d8", stylename: "btnstyle", font: "4.5rem"
+      card: "#f8e6d8", stylename: "btnstyle", font: "4.5rem", y: "2" ,logo:homelogo
     },
     {
       name: Travel, x: "5", id: "Travel", align: "left", color: "#ffffff",
-      card: "#dde7f1", stylename: "mobilehead", font: "5rem"
+      card: "#dde7f1", stylename: "mobilehead", font: "5rem", y: "3" ,logo:travellogo
     },
     {
       name: Grocery, x: "6", id: "Grocery", align: "right", color: "#f1f1f1",
-      card: "#f1f1f1", stylename: "btn", font: "5rem"
+      card: "#f1f1f1", stylename: "btn", font: "5rem", y: "4" ,logo:grocerylogo
     },
   ]
   return (
@@ -67,7 +100,8 @@ const Trends = () => {
               return (
                 <div>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} style={{ marginTop: "8vh", height: '70vh', backgroundImage: `url(${item})`, backgroundSize: 'cover', backgroundPositionY: "40%" }}>
+                    <Grid item xs={12} style={{ marginTop: "8vh", height: '70vh', backgroundImage: `url(${item})`, 
+                    backgroundSize: 'cover', backgroundPositionY: "40%" }}>
                       <Grid container spacing={3}>
                         <Grid item xs={1}></Grid>
                         <Grid item sm={4} xs={6} md={4}
@@ -279,35 +313,47 @@ const Trends = () => {
                                   </Grid>
                                 </>
                                 : <>
-                                  <Grid item xs={12} sm={4} md={4} >
-                                    <Card sx={{
-                                      boxShadow: "none", height: "50vh",
-                                      "&:hover": { backgroundColor: item.card }
-                                    }} >
-                                      <Grid container>
-                                        <Grid item xs={12} style={{
-                                          height: "35vh",
-                                          backgroundImage: `url(${wallpaper})`, backgroundSize: 'cover', backgroundPositionY: "40%"
-                                        }}></Grid>
-                                        <Grid item xs={12}>
-                                          <Grid container>
-                                            <Grid item xs={4}>
-                                              <Button
-                                                sx={{
-                                                  color: "black", border: "2px solid black", fontWeight: "600",
-                                                  "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
-                                                }}
-                                                className="btn">
-                                                KNOW MORE
-                                              </Button>
-                                            </Grid>
-                                            <Grid item xs={4}></Grid>
-                                            <Grid item xs={4}></Grid>
-                                          </Grid>
-                                        </Grid>
+                                  {cardno == item.y ?
+                                    <>
+                                      <Grid item xs={12} sm={4} md={4}>
+                                        <Card sx={{
+                                          backgroundColor: item.card ,
+                                          height: "50vh", boxShadow: "none",
+                                        }}> 
+                                        </Card>
                                       </Grid>
-                                    </Card>
-                                  </Grid>
+                                    </> : <>
+                                      <Grid item xs={12} sm={4} md={4} >
+                                        <Card sx={{
+                                          boxShadow: "none", height: "50vh",
+                                          "&:hover": { backgroundColor: item.card }
+                                        }} >
+                                          <Grid container>
+                                            <Grid item xs={12} style={{
+                                              height: "35vh",
+                                              backgroundImage: `url(${wallpaper})`, backgroundSize: 'cover', backgroundPositionY: "40%"
+                                            }}></Grid>
+                                            <Grid item xs={12}>
+                                              <Grid container>
+                                                <Grid item xs={4}>
+                                                  <Button
+                                                    onClick={() => { handleOpen(); details(cardno, item.card); }}
+                                                    sx={{
+                                                      color: "black", border: "2px solid black", fontWeight: "600",
+                                                      "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
+                                                    }}
+                                                    className="btn">
+                                                    KNOW MORE
+                                                  </Button>
+                                                </Grid>
+                                                <Grid item xs={4}></Grid>
+                                                <Grid item xs={4}></Grid>
+                                              </Grid>
+                                            </Grid>
+                                          </Grid>
+                                        </Card>
+                                      </Grid>
+                                    </>}
                                 </>
                               }
                             </>
@@ -321,6 +367,67 @@ const Trends = () => {
             })}
           </Grid>
         </Grid>
+        <Modal isOpen={ModalOpen}
+          style={{
+            content: {
+              backgroundColor: cardcolor
+            }
+          }}>
+          <Grid container spacing={1} padding={2}>
+            <Grid item xs={12} sm={4} md={4}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}
+                  style={{
+                    backgroundImage: `url(${wallpaper})`, backgroundSize: 'cover', backgroundPositionY: "40%",
+                    height: "45vh", marginTop: "3vh"
+                  }}>views</Grid>
+                <Grid item xs={12} style={{ fontSize: "1.5rem" }}>
+                  <Grid container >
+                    <Grid item xs={6}>Name</Grid>
+                    <Grid item xs={6} style={{ textAlign: "right", }}><i>$4567</i></Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} style={{ fontSize: "1.2rem" }}>
+                  <Grid container >
+                    <Grid item xs={6}>offer</Grid>
+                    <Grid item xs={6} style={{ textAlign: "right", }}><i><s>$5000</s></i></Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} style={{ fontSize: "1.1rem" }}>description</Grid>
+                <Grid item xs={12} style={{ fontSize: "1.3rem" }}>
+                  <Grid container >
+                    <Grid item xs={6}>brand</Grid>
+                    <Grid item xs={6} style={{ textAlign: "right" }}>ratings</Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={8} md={8} style={{ marginTop: "8vh" }}>
+              <Card style={{ marginTop: "3vh", boxShadow: "none", backgroundColor: "transparent" }} >
+                <Button
+                  onClick={() => setModalOpen(false)}
+                  sx={{
+                    color: "black", border: "2px solid black", fontWeight: "600",
+                    "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
+                  }}
+                  className="btn">
+                  KNOW MORE
+                </Button>
+              </Card>
+            </Grid>
+          </Grid>
+          {/* <h2 style={{ color: "red" }}>hiii</h2>
+          <p>scbcmsmn - {currentPost}</p>
+          <Button
+            onClick={() => setModalOpen(false)}
+            sx={{
+              color: "black", border: "2px solid black", fontWeight: "600",
+              "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
+            }}
+            className="btn">
+            KNOW MORE
+          </Button> */}
+        </Modal>
       </Grid>
     </div>
   )

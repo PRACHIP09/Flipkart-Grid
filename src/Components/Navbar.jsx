@@ -23,7 +23,7 @@ const Navbar = () => {
                             <NavLink activeClassName="active" to='/blog' className="indicator">BLOG</NavLink>
                         </Grid>
                         <Grid item xs={2}>
-                            <NavLink activeClassName="active" to='/about' className="indicator">ABOUT</NavLink>
+                            <NavLink activeClassName="active" to='/about' className="indicator">ABOUT US</NavLink>
                         </Grid>
                     </Grid>
                 </Grid>

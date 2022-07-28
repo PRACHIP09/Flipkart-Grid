@@ -10,6 +10,11 @@ import watch from '../Images/watch.jpg'
 import camera from '../Images/camera.jpg'
 import CountUp from 'react-countup'
 import Slider from "react-slick";
+import electronicshome from '../Images/electronicshome.jpg';
+import fashionhome from "../Images/fashionhome.jpg";
+import groceryhome from "../Images/groceryhome.jpg";
+import homehome from "../Images/homehome.jpg";
+import travelhome from "../Images/travelhome.jpg";
 const Homepage = () => {
 
     var hero = {
@@ -69,7 +74,7 @@ const Homepage = () => {
         { x: "22%", name: camera, y: "0" },];
     return (
         <div>
-            <Grid container spacing={2} style={{overflowX:"hidden"}}>
+            <Grid container spacing={2} style={{ overflowX: "hidden" }}>
                 <Grid item xs={12}>
                     <Slider {...hero}>
                         {wallp.map(item => {
@@ -101,34 +106,44 @@ const Homepage = () => {
                         })}
                     </Slider>
                 </Grid>
-                {/*info cards to  eb connected in about us*/}
+                {/*info cards to be connected in about us*/}
                 <Grid item xs={12} style={{ paddingRight: "15vh", paddingTop: "7vh", paddingBottom: "5vh" }}>
                     <Grid container spacing={2} padding={2} paddingLeft={8}>
                         <Grid item xs={6}>
-                            <Card sx={{ backgroundColor: "blue", height: "80vh" }}></Card>
+                            <Card sx={{
+                                backgroundImage: `url(${fashionhome})`,
+                                backgroundSize: "cover", backgroundPositionY: "",
+                                backgroundPositionX: "-50px", height: "80vh"
+                            }}></Card>
                         </Grid>
                         <Grid item xs={6}>
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
-                                    <Card sx={{ backgroundColor: "blue", height: "39vh" }}>
+                                    <Card sx={{ backgroundImage: `url(${homehome})`,
+                                backgroundSize: "cover", backgroundPositionY: "",
+                                backgroundPositionX: "-15px", height: "39vh" }}>
                                     </Card>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Card sx={{ backgroundColor: "blue", height: "39vh" }}>
+                                    <Card sx={{ backgroundImage: `url(${groceryhome})`,
+                                backgroundSize: "cover", backgroundPositionY: "",
+                                backgroundPositionX: "", height: "39vh" }}>
                                     </Card>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Card sx={{ backgroundColor: "blue", height: "39vh" }}>
+                                    <Card sx={{ backgroundImage: `url(${travelhome})`,
+                                backgroundSize: "cover", backgroundPositionY: "",
+                                backgroundPositionX: "-50px", height: "39vh" }}>
                                     </Card>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Card sx={{ backgroundColor: "blue", height: "39vh" }}>
+                                    <Card sx={{ backgroundImage: `url(${electronicshome})`,
+                                backgroundSize: "cover", backgroundPositionY: "",
+                                backgroundPositionX: "-25px", height: "39vh" }}>
                                     </Card>
                                 </Grid>
                             </Grid>
                         </Grid>
-
-
                     </Grid>
                 </Grid>
                 {/*just line*/}
@@ -140,7 +155,7 @@ const Homepage = () => {
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </Grid>
                 {/*products*/}
-                <Grid item xs={12} style={{ marginBottom: "5vh"}}>
+                <Grid item xs={12} style={{ marginBottom: "5vh" }}>
                     <Slider {...settings}>
                         {info.map((item) => {
                             return (

@@ -1,9 +1,6 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Cinzel+Decorative&family=La+Belle+Aurore&family=Lavishly+Yours&family=Libre+Barcode+128+Text&family=Libre+Barcode+39&family=Libre+Barcode+39+Text&family=Marck+Script&family=Monoton&family=Ms+Madi&family=Oranienbaum&family=Scada&family=Zilla+Slab+Highlight&display=swap');
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #F8F8F8;

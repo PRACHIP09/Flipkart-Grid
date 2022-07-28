@@ -10,16 +10,17 @@ import Products from './Components/Products';
 import Trends from './Components/Trends';
 import Blog from './Components/Blog';
 import About from './Components/About';
+import Footer from './Components/Footer';
 function App() {
   return (
     <Router>
     <div className="App">
       <Routes>
-        <Route path="/" element={<><Navbar/><Homepage/></>} />
-        <Route path="/trends" element={<><Navbar/><Trends/></>} />
-        <Route path="/products" element={<><Navbar/><Products/></>} />
-        <Route path="/blog" element={<><Navbar/><Blog/></>} />
-        <Route path="/about" element={<><Navbar/><About/></>} />
+        <Route path="/" element={<><Navbar/><Homepage/><Footer/></>} />
+        <Route path="/trends" element={<><Navbar/><Trends/><Footer/></>} />
+        <Route path="/products" element={<><Navbar/><Products/><Footer/></>} />
+        <Route path="/blog" element={<><Navbar/><Blog/><Footer/></>} />
+        <Route path="/about" element={<><Navbar/><About/><Footer/></>} />
       </Routes>
     </div>
     </Router>

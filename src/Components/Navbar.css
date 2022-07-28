@@ -70,7 +70,64 @@ button {
   .button:active {
     transform: scale(1.01);
   }
+  .navbarfix{
+    top:0;
+    background-color: #7e3535;
+    position: -webkit-sticky;
+    position: sticky;
+    display: block;
   
+  }
+  .fashioninner{
+    text-decoration: none;
+    color:"black";
+    font-family: 'Libre Barcode 128 Text', cursive;
+    font-size: 4rem;
+  }
+  .mobileinner{
+    text-decoration: none;
+    color:"black";
+    font-family: 'Ms Madi', cursive;
+    font-weight: 600;
+    font-size: 3.2rem;
+
+  }
+  .travelinner{
+    text-decoration: none;
+    color:"black";
+    font-family: 'Ms Madi', cursive;
+    font-weight: 600;
+    font-size: 3.2rem;
+  }
+  .electronicsinner{
+    text-decoration: none;
+    color:"black";
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.8rem;
+    margin-top:5vh;
+    font-weight: 600;
+  }
+  .electricalinner{
+    text-decoration: none;
+    color:"black";
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  .homeinner{
+    text-decoration: none;
+    color:"black";
+    font-family: 'La Belle Aurore', cursive;
+    font-weight: 600;
+    font-size: 2.2rem;
+  }
+  .groceryinner{
+    text-decoration: none;
+    color:"black";
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
 /*
 
     font-family: 'Barrio', cursive;
