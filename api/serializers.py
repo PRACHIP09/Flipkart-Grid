@@ -17,30 +17,12 @@ class BrandSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
-    subcategory = SubCategorySerializer()
-    brand = BrandSerializer()
-
     class Meta:
         model = Product
         fields = '__all__'
 
     def create(self, validated_data):
-        category_validated_data = validated_data.pop('category', None)
-        subcategory_validated_data = validated_data.pop('subcategory', None)
-        brand_validated_data = validated_data.pop('brand', None)
-
-        category = Category.objects.create(**category_validated_data)
-        category.save()
-
-        subcategory = SubCategory.objects.create(category=category, **subcategory_validated_data)
-        subcategory.save()
-
-
-        brand = Brand.objects.create(**brand_validated_data)
-        brand.save()
-
-        product = Product.objects.create(category=category, subcategory=subcategory, brand=brand, **validated_data)
+        product = Product.objects.create(**validated_data)
         return product
 
     def update(self, instance, validated_data):
@@ -74,6 +56,13 @@ class ProductSerializer(serializers.ModelSerializer):
         instance.viewers = validated_data.get('viewers', instance.viewers)
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['category'] = CategorySerializer(instance.category).data
+        response['subcategory'] = SubCategorySerializer(instance.category).data
+        response['brand'] = BrandSerializer(instance.category).data
+        return response
 
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:

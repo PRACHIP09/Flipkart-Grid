@@ -1,10 +1,13 @@
 from django.http import JsonResponse
+from django.conf import settings
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.decorators import api_view
 
 from api.models import Blog, Brand, Category, Product, SubCategory, Video
-from api.serializers import BlogSerializer, BrandSerializer, ProductSerializer, VideoSerializer
+from api.serializers import BlogSerializer, BrandSerializer, CategorySerializer, ProductSerializer, SubCategorySerializer, VideoSerializer
+
+import csv, os
 
 # Create your views here.
 class Home(GenericAPIView):
@@ -79,20 +82,35 @@ def brands(request):
     serializer = BrandSerializer(brands, many = True)
     return JsonResponse(serializer.data, status = status.HTTP_200_OK, safe = False)
 
-#https://www.instagram.com/explore/search/keyword/?q=flipkart
-#https://www.instagram.com/explore/tags/flipkart/
-#https://www.instagram.com/flipkart/tagged/
-
-'''from instascrape import *
-import pandas as pd
 
 @api_view(['GET',])
 def get_trends(request):
-    hashtag = Hashtag('https://www.instagram.com/explore/tags/flipkart/')
-    hashtag.scrape()
-    posts = hashtag.get_recent_posts()
-    posts_data = [post.to_dict() for post in posts]
-    posts_df = pd.DataFrame(posts_data)
-    print(posts_df[['comments', 'likes', 'caption']])
-    posts_df.to_csv('data.csv')
-    return JsonResponse({'success' : 'success'})'''
+
+    path = os.path.join(settings.BASE_DIR,"data.csv")
+
+    with open(path, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            if row[0] == 'product name':
+                continue
+            if row[0] == '':
+                break
+            product = Product.objects.filter(name = row[0])
+            discount = True
+            if row[9]==row[14]:
+                discount = False
+            #if len(product)==0:
+            category,k =  Category.objects.get_or_create(name = row[11])
+            subcategory,k =  SubCategory.objects.get_or_create(name = row[12],category=category.id)
+            brand,k =  Brand.objects.get_or_create(name = row[13])
+            data = {'category':category.id,'brand':brand.id,'name':row[0],'price':float(row[9]),'discount':discount,
+                'offer_price':float(row[14]), 'stock':row[15],'url':row[16],'hastags':row[8],'buyers':int(row[6])+int(row[7]),
+                'rating':int(row[2]),'searches':int(row[9]),'viewers':int(row[17]),'rank':int(row[18])
+                }
+            if category != 'Mobile' or 'Travel':
+                data['subcategory']=subcategory.id
+            serializer = ProductSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+    content = {"detail":"Members Verified"}
+    return JsonResponse(content, safe = False)
