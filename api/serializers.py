@@ -59,9 +59,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['category'] = CategorySerializer(instance.category).data
-        response['subcategory'] = SubCategorySerializer(instance.category).data
-        response['brand'] = BrandSerializer(instance.category).data
+        response['category'] = CategorySerializer(instance).data
+        response['subcategory'] = SubCategorySerializer(instance).data
+        response['brand'] = BrandSerializer(instance).data
         return response
 
 class VideoSerializer(serializers.ModelSerializer):

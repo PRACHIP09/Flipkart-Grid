@@ -8,6 +8,12 @@ from api.models import Blog, Brand, Category, Product, SubCategory, Video
 from api.serializers import BlogSerializer, BrandSerializer, CategorySerializer, ProductSerializer, SubCategorySerializer, VideoSerializer
 
 import csv, os
+import urllib
+from urllib.parse import urlparse
+import urllib.request
+from bs4 import BeautifulSoup
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 
 # Create your views here.
 class Home(GenericAPIView):
@@ -99,18 +105,33 @@ def get_trends(request):
             discount = True
             if row[9]==row[14]:
                 discount = False
-            #if len(product)==0:
-            category,k =  Category.objects.get_or_create(name = row[11])
-            subcategory,k =  SubCategory.objects.get_or_create(name = row[12],category=category.id)
-            brand,k =  Brand.objects.get_or_create(name = row[13])
-            data = {'category':category.id,'brand':brand.id,'name':row[0],'price':float(row[9]),'discount':discount,
-                'offer_price':float(row[14]), 'stock':row[15],'url':row[16],'hastags':row[8],'buyers':int(row[6])+int(row[7]),
-                'rating':int(row[2]),'searches':int(row[9]),'viewers':int(row[17]),'rank':int(row[18])
-                }
-            if category != 'Mobile' or 'Travel':
-                data['subcategory']=subcategory.id
-            serializer = ProductSerializer(data=data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
+            if len(product)==0:
+                category,k =  Category.objects.get_or_create(name = row[11])
+                subcategory,k =  SubCategory.objects.get_or_create(name = row[12],category=category.id)
+                brand,k =  Brand.objects.get_or_create(name = row[13])
+                data = {'category':category.id,'brand':brand.id,'name':row[0],'price':float(row[9]),'discount':discount,
+                    'offer_price':float(row[14]), 'stock':row[15],'url':row[16],'hastags':row[8],'buyers':int(row[6])+int(row[7]),
+                    'rating':int(row[2]),'searches':int(row[9]),'viewers':int(row[17]),'rank':int(row[18]),'image':None
+                    }
+
+                req = urllib.request.Request(url=row[16], headers ={'User-Agent': 'Mozilla / 5.0 (X11 Linux x86_64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 52.0.2743.116 Safari / 537.36 PostmanRuntime/7.29.0'})
+                response = urllib.request.urlopen(req)
+                html_doc = response.read()
+                soup = BeautifulSoup(html_doc, 'html.parser')
+                json_object = soup.find(property='twitter:image')
+                image_url = json_object.attrs['content']
+                if category != 'Mobile' or 'Travel':
+                    data['subcategory']=subcategory.id
+                serializer = ProductSerializer(data=data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+                name = urlparse(image_url).path.split('/')[-1]
+                img_temp = NamedTemporaryFile()
+                req = urllib.request.Request(url = image_url, headers= {'User-Agent': 'Mozilla / 5.0 (X11 Linux x86_64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 52.0.2743.116 Safari / 537.36 PostmanRuntime/7.29.0'})
+                img_temp.write(urllib.request.urlopen(req).read())
+                img_temp.flush()
+                recipe = Product.objects.get(name = row[0])
+                recipe.image.save(row[0], File(img_temp))
+                recipe.save()
     content = {"detail":"Members Verified"}
     return JsonResponse(content, safe = False)
