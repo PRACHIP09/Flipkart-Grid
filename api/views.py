@@ -9,6 +9,9 @@ from api.serializers import BlogSerializer, BrandSerializer, CategorySerializer,
 
 import csv, os
 import urllib
+import pickle
+import numpy as np
+import pandas as pd
 from urllib.parse import urlparse
 import urllib.request
 from bs4 import BeautifulSoup
@@ -144,4 +147,17 @@ def get_trends(request):
                 product[0].rank = float(row[18])
                 product[0].save()
     content = {"detail":"Trends synchronized"}
+    return JsonResponse(content, safe = False)
+
+@api_view(['GET',])
+def get_data(request):
+    path = os.path.join(settings.BASE_DIR,"data.csv")
+    pickled_model = pickle.load(open('./models/model_final_ann.pkl', 'rb'))
+    df= pd.read_csv(path)
+    df = df.drop(['product name', 'category','brand','url','category','sub category', 'R', 'W', 'N', 'discount', 'stock', 'score'], axis=1)
+    X = df.loc[:]
+    result = pickled_model.predict(X[1:2])
+    print(result)
+    content = {"detail":"result"}
+    #https://www.flipkart.com/search?q=tropical%20tops
     return JsonResponse(content, safe = False)
