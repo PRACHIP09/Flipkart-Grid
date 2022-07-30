@@ -111,7 +111,7 @@ def get_trends(request):
                 brand,k =  Brand.objects.get_or_create(name = row[13])
                 data = {'category':category.id,'brand':brand.id,'name':row[0],'price':float(row[9]),'discount':discount,
                     'offer_price':float(row[14]), 'stock':row[15],'url':row[16],'hastags':row[8],'buyers':int(row[6])+int(row[7]),
-                    'rating':int(row[2]),'searches':int(row[9]),'viewers':int(row[17]),'rank':int(row[18]),'image':None
+                    'rating':int(row[2]),'searches':int(row[9]),'viewers':int(row[17]),'rank':float(row[18]),'image':None,
                     }
 
                 req = urllib.request.Request(url=row[16], headers ={'User-Agent': 'Mozilla / 5.0 (X11 Linux x86_64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 52.0.2743.116 Safari / 537.36 PostmanRuntime/7.29.0'})
@@ -120,6 +120,9 @@ def get_trends(request):
                 soup = BeautifulSoup(html_doc, 'html.parser')
                 json_object = soup.find(property='twitter:image')
                 image_url = json_object.attrs['content']
+                json_object = soup.find(property="og:description")
+                description = json_object.attrs['content']
+                data['description'] = description
                 if category != 'Mobile' or 'Travel':
                     data['subcategory']=subcategory.id
                 serializer = ProductSerializer(data=data)
@@ -131,7 +134,10 @@ def get_trends(request):
                 img_temp.write(urllib.request.urlopen(req).read())
                 img_temp.flush()
                 recipe = Product.objects.get(name = row[0])
-                recipe.image.save(row[0], File(img_temp))
+                recipe.image.save(name, File(img_temp))
                 recipe.save()
-    content = {"detail":"Members Verified"}
+            else:
+                product[0].rank = float(row[18])
+                product[0].save()
+    content = {"detail":"Trends synchronized"}
     return JsonResponse(content, safe = False)
