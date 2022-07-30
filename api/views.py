@@ -103,18 +103,17 @@ def get_trends(request):
                 break
             product = Product.objects.filter(name = row[0])
             discount = True
-            if row[9]==row[14]:
+            if row[9]==row[13]:
                 discount = False
             if len(product)==0:
-                category,k =  Category.objects.get_or_create(name = row[11])
-                subcategory,k =  SubCategory.objects.get_or_create(name = row[12],category=category.id)
-                brand,k =  Brand.objects.get_or_create(name = row[13])
+                category,k =  Category.objects.get_or_create(name = row[10])
+                brand,k =  Brand.objects.get_or_create(name = row[12])
                 data = {'category':category.id,'brand':brand.id,'name':row[0],'price':float(row[9]),'discount':discount,
-                    'offer_price':float(row[14]), 'stock':row[15],'url':row[16],'hastags':row[8],'buyers':int(row[6])+int(row[7]),
-                    'rating':int(row[2]),'searches':int(row[9]),'viewers':int(row[17]),'rank':float(row[18]),'image':None,
+                    'offer_price':float(row[13]), 'stock':row[14],'url':row[15],'hastags':row[8],'buyers':int(row[7])+int(row[6]),
+                    'rating':int(row[16]),'searches':int(row[2]),'viewers':int(row[17]),'rank':float(row[19]),'image':None,
                     }
 
-                req = urllib.request.Request(url=row[16], headers ={'User-Agent': 'Mozilla / 5.0 (X11 Linux x86_64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 52.0.2743.116 Safari / 537.36 PostmanRuntime/7.29.0'})
+                req = urllib.request.Request(url=row[15], headers ={'User-Agent': 'Mozilla / 5.0 (X11 Linux x86_64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 52.0.2743.116 Safari / 537.36 PostmanRuntime/7.29.0'})
                 response = urllib.request.urlopen(req)
                 html_doc = response.read()
                 soup = BeautifulSoup(html_doc, 'html.parser')
@@ -123,7 +122,8 @@ def get_trends(request):
                 json_object = soup.find(property="og:description")
                 description = json_object.attrs['content']
                 data['description'] = description
-                if category != 'Mobile' or 'Travel':
+                if category.id != 2 and category.id != 5:
+                    subcategory,k =  SubCategory.objects.get_or_create(name = row[11],category=category.id)
                     data['subcategory']=subcategory.id
                 serializer = ProductSerializer(data=data)
                 if serializer.is_valid(raise_exception=True):
@@ -133,10 +133,14 @@ def get_trends(request):
                 req = urllib.request.Request(url = image_url, headers= {'User-Agent': 'Mozilla / 5.0 (X11 Linux x86_64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 52.0.2743.116 Safari / 537.36 PostmanRuntime/7.29.0'})
                 img_temp.write(urllib.request.urlopen(req).read())
                 img_temp.flush()
-                recipe = Product.objects.get(name = row[0])
-                recipe.image.save(name, File(img_temp))
-                recipe.save()
+                try:
+                    recipe = Product.objects.get(name = row[0])
+                    recipe.image.save(name, File(img_temp))
+                    recipe.save()
+                except:
+                    pass
             else:
+                print(product)
                 product[0].rank = float(row[18])
                 product[0].save()
     content = {"detail":"Trends synchronized"}
