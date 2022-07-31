@@ -5,18 +5,18 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import wallpaper from '../Images/wallpaper.jpg';
-import wallpaper2 from '../Images/wallpaper2.jpg'
-import wallpaper3 from '../Images/wallpaper3.jpg'
+import wallpaper from '../../Images/wallpaper.jpg';
+import wallpaper2 from '../../Images/wallpaper2.jpg'
+import wallpaper3 from '../../Images/wallpaper3.jpg'
 import Slider from "react-slick";
 import axios from 'axios';
-import './Navbar.css';
-import Fashion from './Fashion';
-import Mobile from './Mobile';
-import Homedecor from './Homedecor';
-import Electronics from './Electronics';
-import Travel from './Travel';
-import Grocery from './Grocery';
+import '../ChatBot/Navbar.css';
+import Fashion from '../Category/Fashion';
+import Mobile from '../Category/Mobile';
+import Homedecor from '../Category/Homedecor';
+import Electronics from '../Category/Electronics';
+import Travel from '../Category/Travel';
+import Grocery from '../Category/Grocery';
 const Products = () => {
 
   var hero = {

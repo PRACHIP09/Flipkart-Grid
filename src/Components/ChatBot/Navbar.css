@@ -4,7 +4,8 @@ body{
 }
 .active{
     text-decoration: none;
-    color: #E2C091 !important;
+    color:#E2C091 !important;
+    
 }
 .indicator
 {

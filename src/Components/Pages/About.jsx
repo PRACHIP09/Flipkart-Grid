@@ -1,8 +1,8 @@
 import React from 'react'
 import { Grid, TextField, Button } from '@mui/material'
-import wallpaper from '../Images/wallpaper.jpg';
-import wallpaper2 from '../Images/wallpaper2.jpg'
-import wallpaper3 from '../Images/wallpaper3.jpg'
+import wallpaper from '../../Images/wallpaper.jpg';
+import wallpaper2 from '../../Images/wallpaper2.jpg'
+import wallpaper3 from '../../Images/wallpaper3.jpg'
 import Slider from "react-slick";
 import LooksOneIcon from '@mui/icons-material/LooksOne';
 import LooksTwoIcon from '@mui/icons-material/LooksTwo';
@@ -10,7 +10,7 @@ import Looks3Icon from '@mui/icons-material/Looks3';
 import Looks4Icon from '@mui/icons-material/Looks4';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-import './Navbar.css';
+import '../ChatBot/Navbar.css';
 const About = () => {
 
   var hero = {
@@ -26,7 +26,7 @@ const About = () => {
 
   return (
     <div>
-      <Grid container style={{ overflowX: "hidden" }}>
+      <Grid container style={{ overflowX: "hidden", marginBottom: "-2vh" }}>
         <Grid item xs={12} >
           <Slider {...hero}>
             {wallp.map(item => {
@@ -43,7 +43,7 @@ const About = () => {
                           }}>
                           <Grid container spacing={2} >
                             <Grid item xs={12} style={{ fontSize: "2.3rem", textAlign: "left", color: "#023e84", fontWeight: "600" }} data-aos="fade-left">
-                              ALWAYS BE IN <br />TREND WITH US  </Grid>
+                              COME CONNECT <br />WITH US  </Grid>
                             <Grid item xs={12} style={{ fontSize: "1.5rem", textAlign: "left", color: "#023e84" }}>
                               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
                             </Grid>
@@ -156,7 +156,24 @@ const About = () => {
                 <Grid item xs={12} style={{ height: "10vh" }}></Grid>
               </Grid>
             </Grid>
+
             <Grid item xs={12}>
+              <iframe
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                title="DJ Sanghavi College"
+                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Dwarkadas%20J.Sanghavi%20+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                height="500"
+                frameborder="0"
+                width="100%"
+              >
+                <a href="https://www.mapsdirections.info/en/measure-map-radius/">
+                  Map radius measure
+                </a>
+              </iframe>
+            </Grid>
+            <Grid item xs={12} style={{ marginTop: "-1vh" }}>
               <Grid container spacing={2} style={{ backgroundColor: "#E2C091" }}>
                 <Grid item xs={12} style={{ height: "10vh" }}></Grid>
                 <Grid item xs={12}>
@@ -244,10 +261,10 @@ const About = () => {
                             <Grid item xs={12} style={{ textAlign: "left" }}>
                               <Grid container spacing={2}>
                                 <Grid item xs={4}></Grid>
-                                <Grid item xs={8} style={{marginLeft:"-2.5vh"}}>
+                                <Grid item xs={8} style={{ marginLeft: "-2.5vh" }}>
                                   <Button
                                     sx={{
-                                      color: "black", fontWeight: "700", backgroundColor: "#E2C091", fontSize: "1rem", width:"20vh" ,
+                                      color: "black", fontWeight: "700", backgroundColor: "#E2C091", fontSize: "1rem", width: "20vh",
                                       "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
                                     }}
                                     className="btn">Submit</Button></Grid>

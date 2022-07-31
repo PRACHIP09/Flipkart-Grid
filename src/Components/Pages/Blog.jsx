@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, TextField, Button } from '@mui/material'
-import wallpaper from '../Images/wallpaper.jpg';
-import wallpaper2 from '../Images/wallpaper2.jpg'
-import wallpaper3 from '../Images/wallpaper3.jpg'
+import wallpaper from '../../Images/wallpaper.jpg';
+import wallpaper2 from '../../Images/wallpaper2.jpg'
+import wallpaper3 from '../../Images/wallpaper3.jpg'
 import Slider from "react-slick";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import axios from 'axios';
-import pattern from '../Images/pattern1.jpg';
+import pattern from '../../Images/pattern1.jpg';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from "react-modal";
-import './Navbar.css';
+import '../ChatBot/Navbar.css';
 import Swal from 'sweetalert2'
 const Blog = () => {
 

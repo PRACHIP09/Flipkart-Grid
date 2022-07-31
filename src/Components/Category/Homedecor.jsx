@@ -3,10 +3,10 @@ import { Grid, Card, Button, TextField } from '@mui/material';
 import axios from 'axios';
 import Modal from "react-modal";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import Wordcloud from '../Charts/Wordcloud';
 import GradeIcon from '@mui/icons-material/Grade';
 import CloseIcon from '@mui/icons-material/Close';
-import noresult from '../Images/noresult.gif';
+import noresult from '../../Images/noresult.gif';
 import Swal from 'sweetalert2'
 const Homedecor = () => {
 
@@ -969,15 +969,15 @@ const Homedecor = () => {
             return (
               (item.id == currentPost) ?
                 <>
-                  <Grid container spacing={1} padding={2}>
-                    <Grid item xs={12} sm={5} md={5}>
+                  <Grid container spacing={2} padding={2}>
+                    <Grid item xs={12} sm={6} md={6}>
                       <Grid container spacing={2}>
                         <Grid item xs={12}
                           style={{
-                            backgroundColor: "white",
-                            height: "45vh", marginTop: "3vh", borderRadius: "5vh"
+                            backgroundColor: "transparent",
+                            height: "45vh", marginTop: "3vh", borderRadius: "5vh", justifyContent: "left",
                           }}><Grid container spacing={2} style={{ borderRadius: "10vh" }}>
-                            <Grid item xs={4}></Grid>
+
                             <Grid item xs={4} >
                               <img src={"https://flipkart-grid.herokuapp.com" + item.image} style={{ height: "40vh" }} />
                             </Grid>
@@ -987,12 +987,12 @@ const Homedecor = () => {
                         <Grid item xs={12} style={{ fontSize: "1.2rem", fontWeight: "600" }}>
                           <Grid container >
                             <Grid item xs={9}>{item.name}</Grid>
-                            <Grid item xs={3} style={{ marginTop: "2vh" }}>
+                            <Grid item xs={3} style={{ marginTop: "2vh", paddingLeft: "3vh" }}>
                               <Grid container spacing={2} style={{
                                 backgroundColor: "#E2C091", height: "5vh",
                                 borderRadius: "5px", fontSize: "1rem"
                               }}>
-                                <Grid item xs={12} style={{ marginTop: "-1.5vh" }}>
+                                <Grid item xs={12} style={{ marginTop: "-1.5vh", textAlign: "left", }}>
                                   {item.stock} items in stock
                                 </Grid>
                               </Grid>
@@ -1004,25 +1004,27 @@ const Homedecor = () => {
                           <Grid container spacing={1}>
                             {item.discount ?
                               <>
-                                <Grid item xs={8} style={{ textAlign: "left", fontSize: "1.1rem" }}><i>Deal of the day &nbsp;&nbsp;&nbsp;</i>
+                                <Grid item xs={7} style={{ textAlign: "left", fontSize: "1.1rem" }}><i>Deal of the day &nbsp;&nbsp;&nbsp;</i>
                                   <span style={{
                                     fontSize: "1.1rem", fontWeight: "600", backgroundColor: "#e2c091", padding: "1vh 2vh", border: "2px solid black",
                                     borderRadius: "5px"
-                                  }}>${item.offer_price}</span>
+                                  }}>₹{item.offer_price}</span>
                                   <span style={{
                                     fontSize: "1.1rem", fontWeight: "600", backgroundColor: "transparent", padding: "1vh 2vh", border: "2px solid black",
                                     borderRadius: "5px", marginLeft: "3vh"
-                                  }}><s>${item.price}</s></span>
+                                  }}><s>₹{item.price}</s></span>
                                 </Grid>
-                                <Grid item xs={4}>
-                                  <Button
-                                    sx={{
-                                      color: "black", border: "2px solid black", fontWeight: "600", height: "5vh", marginLeft: "10vh"
-                                      , "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
-                                    }}
-                                    className="btn">
-                                    BUY NOW
-                                  </Button>
+                                <Grid item xs={4} style={{ marginLeft: "5vh" }}>
+                                  <a href={item.url} style={{ textDecoration: "none" }}>
+                                    <Button
+                                      sx={{
+                                        color: "black", border: "2px solid black", fontWeight: "600", height: "5vh", marginLeft: "10vh"
+                                        , "&:hover": { backgroundColor: "black", color: "#ffffff", border: "2px solid transparent" }
+                                      }}
+                                      className="btn">
+                                      BUY NOW
+                                    </Button>
+                                  </a>
                                 </Grid>
                               </>
                               : <>
@@ -1030,14 +1032,13 @@ const Homedecor = () => {
                                   <span style={{
                                     fontSize: "1.1rem", fontWeight: "600", backgroundColor: "#e2c091", padding: "1vh 2vh", border: "2px solid black",
                                     borderRadius: "5px"
-                                  }}>${item.price}</span></Grid>
+                                  }}>₹{item.price}</span></Grid>
                               </>}
-
                           </Grid>
                         </Grid>
                         <Grid item xs={12} style={{ margin: "4vh 0vh 0vh 0vh", fontSize: "1rem", fontWeight: "600" }}>
                           <Grid container spacing={5}>
-                            <Grid item xs={4}>
+                            <Grid item xs={6}>
                               <Grid container spacing={2} style={{
                                 height: "5vh",
                                 borderRadius: "5px", border: "2px solid #E2C091"
@@ -1047,24 +1048,22 @@ const Homedecor = () => {
                                 </Grid>
                               </Grid>
                             </Grid>
-                            <Grid item xs={1}></Grid>
-
-                            <Grid item xs={7}>
+                            <Grid item xs={6}>
                               <Grid container spacing={2} style={{
                                 height: "5vh",
                                 borderRadius: "5px"
                               }}>
                                 <Grid item xs={6}>
                                   <Grid container spacing={1}>
-                                    <Grid item xs={2} style={{ marginTop: "-2vh" }}><GradeIcon /></Grid>
-                                    <Grid item xs={10} style={{ marginTop: "-1.7vh", textAlign: "right", fontSize: "0.9rem" }}>
-                                      {item.rating} rating points
+                                    <Grid item xs={2} style={{ marginTop: "-2vh" }}><GradeIcon style={{ marginLeft: "3vh" }} /></Grid>
+                                    <Grid item xs={10} style={{ marginTop: "-1.6vh", textAlign: "right" }}>
+                                      {item.rating} points
                                     </Grid>
                                   </Grid>
                                 </Grid>
                                 <Grid item xs={6}>
                                   <Grid container spacing={1}>
-                                    <Grid item xs={2} style={{ marginTop: "-2vh" }}><RemoveRedEyeIcon style={{ marginLeft: "2vh" }} /></Grid>
+                                    <Grid item xs={2} style={{ marginTop: "-2vh" }}><RemoveRedEyeIcon style={{ marginLeft: "1.7vh" }} /></Grid>
                                     <Grid item xs={10} style={{ marginTop: "-1.7vh", textAlign: "center" }}>
                                       {item.viewers} views
                                     </Grid>
@@ -1076,13 +1075,19 @@ const Homedecor = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={7} md={7} style={{ marginTop: "8vh" }}>
+                    <Grid item xs={12} sm={5} md={5} style={{ marginTop: "8vh", paddingLeft: "5vh" }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12} style={{ textAlign: "left" }}>
                           <Grid container spacing={2}>
-                            <Grid item xs={10}></Grid>
-                            <Grid item xs={2} style={{ marginTop: "-10vh" }}>
-                              <CloseIcon style={{ color: "red", marginLeft: "12vh" }} onClick={() => setModalOpen(false)} />
+                            <Grid item xs={11} >
+                              <Grid container >
+                                <Grid item xs={12} style={{ paddingLeft: "10vh", marginTop: "-5vh" }}>
+                                  <Wordcloud />
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={1} style={{ marginTop: "-10vh" }}>
+                              <CloseIcon style={{ color: "black", marginLeft: "12vh" }} onClick={() => setModalOpen(false)} />
                             </Grid>
                           </Grid>
                         </Grid>
