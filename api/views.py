@@ -161,3 +161,11 @@ def get_data(request):
     content = {"detail":"result"}
     #https://www.flipkart.com/search?q=tropical%20tops
     return JsonResponse(content, safe = False)
+
+@api_view(['GET',])
+def top_items(request):
+    response_dict = {}
+    categories = Category.objects.all()
+    for category in categories:
+        response_dict[category.name] = ProductSerializer(Product.objects.filter(category = category).order_by('-buyers')[:4], many=True).data
+    return JsonResponse(response_dict, safe = False)

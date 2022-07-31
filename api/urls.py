@@ -9,4 +9,5 @@ urlpatterns = [
     path('brands', views.brands , name='brands'),
     path('trends', views.get_trends , name='trends'),
     path('data', views.get_data , name='data'),
+    path('top', views.top_items , name='top'),
 ]
