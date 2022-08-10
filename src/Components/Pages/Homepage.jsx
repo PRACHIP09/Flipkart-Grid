@@ -57,7 +57,7 @@ const Homepage = () => {
         slidesToScroll: 4,
         initialSlide: 0,
         autoplay: true,
-        autoplaySpeed: 10000,
+        autoplaySpeed: 2000,
         responsive: [
             {
                 breakpoint: 1024,
